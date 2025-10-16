@@ -29,14 +29,3 @@ Add a Python file in `fixturekit/drivers/`, implement the abstract class, and re
   init:   { port: /dev/ttyUSB0, baud: 115200 }
 ```
 
-## Notes
-- Korad KD3005P commands reflect the common `VSET1/ISET1/OUT1` style used in many builds.
-  Adjust if your firmware variant differs.
-- ADS1115 uses +/-4.096 V PGA; scale external dividers with `vdiv_unscale()`.
-- INA219 requires your actual shunt value and chosen current_LSB for best accuracy.
-- MCP4151 assumes 256-tap variant.
-- MCP23008 relay board exposes an 8-bit mask (even if you only have 4 relays).
-
-## Generic example
-Use `configs/generic_example.yaml` and `examples/generic_smoke_test.py` for a fully generic template.
-Indicators are defined in YAML (no SG313-specific names). Measurements can define optional dividers.
