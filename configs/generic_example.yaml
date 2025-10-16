@@ -1,0 +1,44 @@
+devices:
+  - name: psu
+    driver: { module: fixturekit.drivers.korad_kd3005p, class: KoradKD3005P }
+    init: { port: /dev/ttyACM0, baud: 9600 }
+
+  - name: adc0
+    driver: { module: fixturekit.drivers.ads1115, class: ADS1115 }
+    init: { i2c_bus: 1, addr: 0x48 }
+
+  - name: adc1
+    driver: { module: fixturekit.drivers.ads1115, class: ADS1115 }
+    init: { i2c_bus: 1, addr: 0x4B }
+
+  - name: cm_vin
+    driver: { module: fixturekit.drivers.ina219, class: INA219 }
+    init: { i2c_bus: 1, addr: 0x40, shunt_ohms: 0.1, current_lsb: 0.0005 }
+
+  - name: cm_out
+    driver: { module: fixturekit.drivers.ina219, class: INA219 }
+    init: { i2c_bus: 1, addr: 0x41, shunt_ohms: 0.1, current_lsb: 0.0005 }
+
+  - name: relays
+    driver: { module: fixturekit.drivers.mcp23008_rl40002, class: RL40002 }
+    init: { i2c_bus: 1, addr: 0x20 }
+
+  - name: digipot
+    driver: { module: fixturekit.drivers.mcp4151, class: MCP4151 }
+    init: { spi_bus: 0, spi_dev: 0 }
+
+# Optional fixture-specific metadata that generic scripts can use:
+indicators:
+  # Each indicator reads a single-ended ADC channel and compares against a threshold.
+  - { name: "indicator_A", adc: "adc0", channel: 0, threshold_v: 0.8 }
+  - { name: "indicator_B", adc: "adc0", channel: 1, threshold_v: 0.8 }
+  - { name: "indicator_C", adc: "adc0", channel: 2, threshold_v: 0.8 }
+
+measurements:
+  # Each measurement can optionally specify a divider to recover the source voltage.
+  - { name: "rail_OUT", adc: "adc0", channel: 3, divider: { rtop: 60400.0, rbot: 150000.0 } }
+
+relay_map:
+  # Optional convenience map (LSB -> first name). Only used by helper scripts; the driver still uses a raw mask.
+  names: ["PWR_EN", "LOAD_EN", "AUX1", "AUX2", "AUX3", "AUX4", "AUX5", "AUX6"]
+  default_mask: 0x00

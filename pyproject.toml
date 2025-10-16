@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fixturekit"
+version = "0.1.0"
+description = "Reusable device drivers and helpers for hardware test fixtures (SG313 & beyond)"
+authors = [{name="Collab Bot"}]
+requires-python = ">=3.9"
+dependencies = ["pyserial>=3.5", "smbus2>=0.4.3", "spidev>=3.6", "pyyaml>=6.0"]
+
+[project.scripts]
+discover-i2c = "scripts.discover_i2c:scan"
