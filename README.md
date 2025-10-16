@@ -1,6 +1,6 @@
 # FixtureKit — device repository for test fixtures
 
-A small, class-based Python package that standardizes drivers and configs for your common peripherals
+A small, class-based Python package that standardizes drivers and configs for peripherals
 (Korad KD3005P, ADS1115, INA219, MCP4151, MCP23008/RL40002, etc.).
 
 ## Quick start (Raspberry Pi)
